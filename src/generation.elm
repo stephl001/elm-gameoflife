@@ -1,4 +1,4 @@
-module Generation exposing (CellState(..), Column, Gen, Height, Row, Width, flatten, foldl, fromList, getDimensions, mapRowCells, mapRows, nextGen, repeat, toggleCellState)
+module Generation exposing (CellState(..), Column, Gen, Height, Row, Width, flatten, foldl, fromList, getDimensions, mapRowCells, mapRows, nextGen, repeat, toList, toggleCellState)
 
 import Array exposing (Array)
 import Array2D exposing (Array2D)
@@ -37,6 +37,18 @@ repeat height width state =
 fromList : List (List CellState) -> Gen
 fromList =
     Array2D.fromList >> Gen
+
+
+toList : Gen -> List (List CellState)
+toList gen =
+    let
+        cellsIdentity =
+            mapRowCells (\_ _ -> identity)
+
+        applyGen =
+            (|>) gen
+    in
+    gen |> (mapRows cellsIdentity >> List.map applyGen)
 
 
 getDimensions : Gen -> ( Height, Width )
