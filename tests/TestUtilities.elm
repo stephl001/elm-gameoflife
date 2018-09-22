@@ -50,7 +50,7 @@ rotateLeft =
 
 
 genFromInt : Height -> Width -> Int -> Gen
-genFromInt height width i =
+genFromInt (Height height) (Width width) i =
     let
         stateFromBit r c =
             if (shiftRightBy (r * width + c) i |> and 1) == 1 then

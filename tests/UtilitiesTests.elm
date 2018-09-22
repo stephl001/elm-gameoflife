@@ -2,13 +2,17 @@ module UtilitiesTests exposing (suite)
 
 import Expect exposing (Expectation)
 import Fuzz exposing (Fuzzer, int, list, string)
-import Generation exposing (CellState(..), Gen, fromList)
+import Generation exposing (CellState(..), Column(..), Gen, Height(..), Row(..), Width(..), fromList)
 import Test exposing (..)
 import TestUtilities exposing (..)
 
 
 suite : Test
 suite =
+    let
+        genCreator =
+            genFromInt (Height 3) (Width 3)
+    in
     describe "The TestUtilities module"
         [ describe "Create Generation"
             -- Nest as many descriptions as you like.
@@ -16,7 +20,7 @@ suite =
                 \_ ->
                     let
                         allAlive =
-                            genFromInt 3 3 511
+                            genCreator 511
 
                         expected =
                             Generation.fromList
@@ -30,7 +34,7 @@ suite =
                 \_ ->
                     let
                         allAlive =
-                            genFromInt 3 3 0
+                            genCreator 0
 
                         expected =
                             Generation.fromList

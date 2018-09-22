@@ -2,7 +2,7 @@ module GenerationTests exposing (suite)
 
 import Expect exposing (Expectation)
 import Fuzz exposing (Fuzzer, int, intRange, list, string)
-import Generation exposing (CellState(..), Gen, fromList, toList)
+import Generation exposing (CellState(..), Column(..), Gen, Height(..), Row(..), Width(..), fromList, toList)
 import Test exposing (..)
 import TestUtilities exposing (..)
 
@@ -17,12 +17,12 @@ suite =
             intRange 0 (2 ^ genHeight ^ genWidth - 1)
 
         genCreator =
-            genFromInt genHeight genWidth
+            genFromInt (Height genHeight) (Width genWidth)
 
         toggleAllCells : Gen -> Gen
         toggleAllCells gen =
             List.range 0 (genHeight * genWidth - 1)
-                |> List.foldl (\i -> Generation.toggleCellState (i // genWidth) (i % genWidth)) gen
+                |> List.foldl (\i -> Generation.toggleCellState (i // genWidth |> Row) (i % genWidth |> Column)) gen
     in
     describe "The Generation module"
         [ describe "Create Generation"
@@ -45,12 +45,12 @@ suite =
                 \someHeight someWidth ->
                     let
                         randomGen =
-                            Generation.repeat someHeight someWidth Dead
+                            Generation.repeat (Height someHeight) (Width someWidth) Dead
 
                         dim =
                             randomGen |> Generation.getDimensions
                     in
-                    Expect.equal dim ( someHeight, someWidth )
+                    Expect.equal dim ( Height someHeight, Width someWidth )
             ]
         , describe "Generation Cell Toggling - All Cells Twice"
             [ fuzz genFuzzer "Toggling all cells of a random generation twice should yield the original generation" <|
