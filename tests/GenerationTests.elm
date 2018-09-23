@@ -73,4 +73,32 @@ suite =
                     in
                     Expect.notEqual randomGen (randomGen |> toggleAllCells)
             ]
+        , describe "Generation with all cells alive"
+            [ fuzz2 (intRange 3 20) (intRange 3 20) "Generation following a generation with only alive cells should only have corners alive" <|
+                \someHeight someWidth ->
+                    let
+                        randomGen =
+                            Generation.repeat (Height someHeight) (Width someWidth) Alive
+
+                        hasOnlyDeadCells : Gen -> Bool
+                        hasOnlyDeadCells =
+                            Generation.foldl (\state acc -> acc && (state == Dead)) True
+                    in
+                    Expect.false "Generation should not be empty" (randomGen |> Generation.nextGen |> hasOnlyDeadCells)
+            ]
+        , describe "Next generation with rotation"
+            [ fuzz genFuzzer "Rotating next generation must yield the same generation as rotating generation first and getting the next generation" <|
+                \someInt ->
+                    let
+                        randomGen =
+                            genCreator someInt
+
+                        nextGenThenRotateRight =
+                            Generation.nextGen >> rotateGenRight
+
+                        rotateRightThenNextGen =
+                            rotateGenRight >> Generation.nextGen
+                    in
+                    Expect.equal (nextGenThenRotateRight randomGen) (rotateRightThenNextGen randomGen)
+            ]
         ]

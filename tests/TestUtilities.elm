@@ -1,4 +1,4 @@
-module TestUtilities exposing (genFromInt, rotateLeft, rotateRight)
+module TestUtilities exposing (genFromInt, rotateGenLeft, rotateGenRight)
 
 import Bitwise exposing (and, shiftRightBy)
 import Generation exposing (..)
@@ -62,3 +62,13 @@ genFromInt (Height height) (Width width) i =
     List.range 0 (height - 1)
         |> List.map (\r -> List.range 0 (width - 1) |> List.map (\c -> stateFromBit r c))
         |> Generation.fromList
+
+
+rotateGenRight : Gen -> Gen
+rotateGenRight =
+    Generation.toList >> rotateRight >> Generation.fromList
+
+
+rotateGenLeft : Gen -> Gen
+rotateGenLeft =
+    Generation.toList >> rotateLeft >> Generation.fromList
