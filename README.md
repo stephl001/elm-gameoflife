@@ -16,8 +16,6 @@ module MyModule exposing (runSimulation)
 import Generation exposing (CellState(..), Column(..), Gen, Height(..), Row(..), Width(..), fromList, nextGen, toggleCellState)
 
 
--- CAUSE OF DEATH
-
 runSimulation : () -> Gen
 runSimulation () =
   let

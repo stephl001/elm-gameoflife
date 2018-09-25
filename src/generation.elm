@@ -1,4 +1,59 @@
-module Generation exposing (CellState(..), Column(..), Gen, Height(..), Row(..), Width(..), flatten, foldl, fromList, getDimensions, mapRowCells, mapRows, nextGen, repeat, toList, toggleCellState)
+module Generation exposing
+    ( CellState(..), Gen
+    , repeat, fromList
+    , Height(..), Width(..), Row(..), Column(..), getDimensions
+    , getCellState, setCellState, toggleCellState
+    , nextGen
+    , mapRows, mapRowCells, flatten, foldl
+    , toList
+    )
+
+{-| Conway's Game of Life in Elm
+This module helps calculate generations based on the game of life generation rules.
+
+    runSimulation : () -> Gen
+    runSimulation () =
+        let
+            newGen =
+                fromList
+                    [ [ Dead, Dead, Dead ]
+                    , [ Alive, Alive, Alive ]
+                    , [ Dead, Dead, Dead ]
+                    ]
+        in
+        newGen |> nextGen
+
+
+# Definition
+
+@docs CellState, Gen
+
+
+# Creation
+
+@docs repeat, fromList
+
+
+# Dimensions & Coordinates
+
+@docs Height, Width, Row, Column, getDimensions
+
+
+# State Manipulation
+
+@docs getCellState, setCellState, toggleCellState
+
+
+# Generation Calculation
+
+@docs nextGen
+
+
+# Transformation
+
+@docs mapRows, mapRowCells, flatten, foldl
+
+-}
 
 import Array exposing (Array)
 import Array2D exposing (Array2D)
