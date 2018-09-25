@@ -46,7 +46,8 @@ type Gen
 {-| Creates a generation with given height and width by repeating the same
 state for each cell.
 
-    someGen = repeat (Height 5) (Width 5) Alive
+    someGen =
+        repeat (Height 5) (Width 5) Alive
 
 -}
 repeat : Height -> Width -> CellState -> Gen
@@ -56,7 +57,8 @@ repeat (Height height) (Width width) state =
 
 {-| Creates a generation from a list (row) of list of cell states (column).
 
-    someGen = fromList [[Dead,Alive,Dead], [Alive,Dead,Alive], [Dead,Alive,Dead]]
+    someGen =
+        fromList [ [ Dead, Alive, Dead ], [ Alive, Dead, Alive ], [ Dead, Alive, Dead ] ]
 
 -}
 fromList : List (List CellState) -> Gen
