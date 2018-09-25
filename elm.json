@@ -1,23 +1,16 @@
 {
-    "type": "application",
-    "source-directories": [
-        "src"
-    ],
-    "elm-version": "0.19.0",
-    "dependencies": {
-        "direct": {
-            "elm/core": "1.0.0",
-            "elm-explorations/test": "1.1.0",
-            "tortus/elm-array-2d": "2.1.2"
-        },
-        "indirect": {
-            "elm/json": "1.0.0",
-            "elm/random": "1.0.0",
-            "elm/time": "1.0.0"
-        }
-    },
-    "test-dependencies": {
-        "direct": {},
-        "indirect": {}
-    }
+	"type": "package",
+	"name": "stelar/elm-gameoflife",
+	"summary": "Calculates generations for Conway's game of life",
+	"license": "BSD-3-Clause",
+	"version": "1.0.0",
+	"exposed-modules": [
+		"Generation"
+	],
+	"elm-version": "0.19.0 <= v < 0.20.0",
+	"dependencies": {
+        "elm/core": "1.0.0 <= v < 2.0.0",
+        "tortus/elm-array-2d": "2.1.1 <= v < 3.0.0"
+	},
+	"test-dependencies": {}
 }
